@@ -1,7 +1,9 @@
 .navbar {
   background-color: #272727;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid white;
+  position: sticky;
 }
 .nav-container {
   width: 90%;
@@ -9,8 +11,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  /* border: 1px solid white; */
 }
 .home-website-logo {
   width: 110px;
@@ -80,8 +80,8 @@
 }
 @media screen and (min-width: 768px) {
   .navbar {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   .home-website-logo {
     width: 130px;

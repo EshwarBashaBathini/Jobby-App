@@ -26,12 +26,15 @@ class Jobs extends Component {
     searchInput: '',
     activeSalaryRangeId: '',
     employmentTypesChecked: [],
+    locationId: '',
   }
 
   componentDidMount() {
     this.getProfileDetails()
     this.getJobs()
   }
+
+  onLocationChange = id => this.setState({locationId: id})
 
   updateEmploymentTypesChecked = typeId => {
     const {employmentTypesChecked} = this.state
@@ -163,6 +166,7 @@ class Jobs extends Component {
         <FiltersGroup
           updateSalaryRangeId={this.updateSalaryRangeId}
           activeSalaryRangeId={activeSalaryRangeId}
+          onLocationChange={this.onLocationChange}
           updateEmploymentTypesChecked={this.updateEmploymentTypesChecked}
           employmentTypesChecked={employmentTypesChecked}
         />
@@ -185,12 +189,19 @@ class Jobs extends Component {
   )
 
   renderJobsList = () => {
-    const {jobsList} = this.state
+    const {jobsList, locationId} = this.state
+    let filterData
+    if (locationId === '') {
+      filterData = jobsList
+    } else {
+      filterData = jobsList.filter(item => item.location === locationId)
+    }
+
     return (
       <>
-        {jobsList.length > 0 ? (
+        {filterData.length > 0 ? (
           <ul className="jobs-list">
-            {jobsList.map(eachJob => (
+            {filterData.map(eachJob => (
               <JobCard key={eachJob.id} jobDetails={eachJob} />
             ))}
           </ul>

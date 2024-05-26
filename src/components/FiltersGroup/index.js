@@ -71,8 +71,52 @@ const FiltersGroup = props => {
 
   const renderEmploymentTypes = () => (
     <>
-      <p className="filter-heading">Type of Employment</p>
+      <h1 className="filter-heading">Type of Employment</h1>
       {renderEmploymentTypesList()}
+    </>
+  )
+  const locationList = [
+    {
+      id: 'Hyderabad',
+    },
+    {
+      id: 'Delhi',
+    },
+    {
+      id: 'Mumbai',
+    },
+    {
+      id: 'Chennai',
+    },
+    {
+      id: 'Bangalore',
+    },
+  ]
+  const renderLocationList = () => {
+    const {onLocationChange} = props
+    return (
+      <ul className="filters-list">
+        {locationList.map(item => (
+          <li className="fliters-list-item" key={item.id}>
+            <input
+              type="radio"
+              name="location"
+              onChange={() => onLocationChange(item.id)}
+              id={item.id}
+            />
+            <label className="filter-label" htmlFor={item.id}>
+              {item.id}
+            </label>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  const renderLocation = () => (
+    <>
+      <p className="filter-heading">Lacations</p>
+      {renderLocationList()}
     </>
   )
 
@@ -119,6 +163,8 @@ const FiltersGroup = props => {
       {renderEmploymentTypes()}
       <hr className="separator" />
       {renderSalaryRangesTypes()}
+      <hr className="separator" />
+      {renderLocation()}
     </div>
   )
 }

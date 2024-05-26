@@ -9,6 +9,7 @@
   flex-grow: 1;
   padding-top: 25px;
   width: 90%;
+  height: 100vh;
   align-self: center;
   padding-bottom: 40px;
   /* border: 1px solid white; */
@@ -23,7 +24,16 @@
 .side-bar {
   display: flex;
   flex-direction: column;
+  position: sticky;
   gap: 20px;
+
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  max-height: 120vh; /* Ensure it doesn't exceed the viewport height */
+  overflow-y: auto;
+  padding: 16px; /* Optional: padding for better layout */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   /* border: 1px solid white; */
 }
 @media screen and (min-width: 768px) {
@@ -46,6 +56,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-y: auto;
 }
 
 .search-bar {
