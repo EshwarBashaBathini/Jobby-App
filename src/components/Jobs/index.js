@@ -58,6 +58,7 @@ class Jobs extends Component {
     jobsList: [],
     apiStatus: apiStatusConstants.initial,
     employeeTypeList: [],
+    location: [],
     minimumSalary: '',
     searchInput: '',
   }
@@ -70,11 +71,12 @@ class Jobs extends Component {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
-    const {employeeTypeList, minimumSalary, searchInput} = this.state
+    const {employeeTypeList, minimumSalary, searchInput, location} = this.state
+    console.log(location)
     // console.log(employeeTypeList)
     // employeeTypeList is empty array on initial page load when any input of type of employment is clicked
     // we are setting state of this type in changeEmployeeList function
-    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeTypeList.join()}&minimum_package=${minimumSalary}&search=${searchInput}`
+    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeTypeList.join()}&minimum_package=${minimumSalary}&search=${searchInput}&locations=${location.join()}`
     // To convert a list of items as a comma-separated string we can use the array method join()
     //  const fruits = ["Banana", "Orange", "Apple", "Mango"];
     // console.log(fruits.join()) Banana,Orange,Apple,Mango
@@ -211,6 +213,26 @@ class Jobs extends Component {
     }
   }
 
+  changeEmployeeLocation = id => {
+    const {location} = this.state
+    console.log(id)
+    const inputNotInList = location.filter(eachItem => eachItem === id)
+    // console.log(inputNotInList)
+    if (inputNotInList.length === 0) {
+      this.setState(
+        prevState => ({
+          location: [...prevState.location, id],
+        }),
+        this.getJobs,
+      )
+    } else {
+      const filteredData = location.filter(eachItem => eachItem !== id)
+      // console.log(filteredData)
+
+      this.setState({location: filteredData}, this.getJobs)
+    }
+  }
+
   changeSearchInput = event => {
     this.setState({searchInput: event.target.value})
   }
@@ -233,6 +255,7 @@ class Jobs extends Component {
               salaryRangesList={salaryRangesList}
               changeSearchInput={this.changeSearchInput}
               searchInput={searchInput}
+              changeEmployeeLocation={this.changeEmployeeLocation}
               getJobs={this.getJobs}
               changeSalary={this.changeSalary}
               changeEmployeeList={this.changeEmployeeList}

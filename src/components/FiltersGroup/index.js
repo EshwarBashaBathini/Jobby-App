@@ -4,6 +4,7 @@ import ProfileDetails from '../ProfileDetails'
 import './index.css'
 
 const FiltersGroup = props => {
+  const {changeEmployeeLocation} = props
   const onChangeSearchInput = event => {
     const {changeSearchInput} = props
     changeSearchInput(event)
@@ -50,6 +51,51 @@ const FiltersGroup = props => {
     changeEmployeeList(event.target.value)
     // console.log(event.target.value)
   }
+  const employmentLocation = [
+    {id: 'Hyderabad', label: 'Hyderabad'},
+    {
+      id: 'Bangalore',
+      label: 'Bangalore',
+    },
+    {
+      id: 'Delhi',
+      label: 'Delhi',
+    },
+    {
+      id: 'Chennai',
+      label: 'Chennai',
+    },
+    {
+      id: 'Mumbai',
+      label: 'Mumbai',
+    },
+  ]
+
+  const onSelectEmployeelocation = event => {
+    changeEmployeeLocation(event.target.value)
+  }
+
+  const renderTypeOfLocation = () => (
+    <div className="employment-type-container">
+      <h1 className="employment-type-heading"> Type of Location</h1>
+      <ul className="employee-type-list-container">
+        {employmentLocation.map(eachEmployee => (
+          <li className="employee-item" key={eachEmployee.id}>
+            <input
+              type="checkbox"
+              id={eachEmployee.id}
+              className="check-input"
+              value={eachEmployee.id}
+              onChange={onSelectEmployeelocation}
+            />
+            <label htmlFor={eachEmployee.id} className="check-label">
+              {eachEmployee.label}
+            </label>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 
   const renderTypeOfEmployment = () => {
     const {employmentTypesList} = props
@@ -128,6 +174,8 @@ const FiltersGroup = props => {
       {renderTypeOfEmployment()}
       <hr className="horizontal-line" />
       {renderSalaryRange()}
+      <hr className="horizontal-line" />
+      {renderTypeOfLocation()}
     </div>
   )
 }
