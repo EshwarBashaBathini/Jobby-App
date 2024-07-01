@@ -173,6 +173,11 @@
 }
 .jobs-list {
   padding-left: 0;
+  height: 70vh;
+  overflow-y: auto;
+}
+.jobs-list::-webkit-scrollbar {
+  display: none;
 }
 .search-input-jobs-list-container {
   display: flex;

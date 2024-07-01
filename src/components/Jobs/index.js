@@ -115,13 +115,21 @@ class Jobs extends Component {
   }
 
   renderJobsList = () => {
-    const {jobsList} = this.state
+    const {jobsList, location} = this.state
+    let filterJObs
+    const filtered = jobsList.filter(job =>
+      location.some(locations => job.location.includes(locations)),
+    )
+    if (filtered.length === 0) {
+      filterJObs = jobsList
+    } else {
+      filterJObs = filtered
+    }
     const renderJobsList = jobsList.length > 0
-
     return renderJobsList ? (
       <div className="all-jobs-container">
         <ul className="jobs-list">
-          {jobsList.map(job => (
+          {filterJObs.map(job => (
             <JobCard jobData={job} key={job.id} />
           ))}
         </ul>
